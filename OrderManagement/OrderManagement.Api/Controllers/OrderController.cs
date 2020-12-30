@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
 
 namespace OrderManagement.Api.Controllers
 {
@@ -18,12 +17,16 @@ namespace OrderManagement.Api.Controllers
             this.service = service;
         }
 
-        public int Post([FromBody] OrderDetails orderDetails)
+        [Route("api/order/createOrder")]
+        [HttpPost]
+        public int CreateOrder([FromBody] OrderDetails orderDetails)
         {
             return service.CreateOrder(orderDetails);
         }
 
-        public bool Delete(int id)
+        [Route("api/order/deleteOrder/{id}")]
+        [HttpDelete]
+        public bool DeleteOrder(int id)
         {
             service.DeleteOrder(id);
             return true;
