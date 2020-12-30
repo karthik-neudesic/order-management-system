@@ -22,5 +22,11 @@ namespace OrderManagement.Api.Controllers
         {
             return service.CreateOrder(orderDetails);
         }
+
+        public bool Delete(int id)
+        {
+            service.DeleteOrder(id);
+            return true;
+        }
     }
 }

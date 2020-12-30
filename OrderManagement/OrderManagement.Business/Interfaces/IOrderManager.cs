@@ -10,5 +10,6 @@ namespace OrderManagement.Business.Interfaces
     public interface IOrderManager
     {
         int CreateOrder(OrderDetails orderDetails);
+        void DeleteOrder(int orderId);
     }
 }

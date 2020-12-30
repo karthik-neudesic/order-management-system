@@ -40,5 +40,10 @@ namespace OrderManagement.Business.Implementation
 
             return service.CreateOrder(order, orderItems);
         }
+
+        public void DeleteOrder(int orderId)
+        {
+            service.DeleteOrder(orderId);
+        }
     }
 }

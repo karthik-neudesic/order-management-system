@@ -10,5 +10,6 @@ namespace OrderManagement.Repository.Interfaces
     public interface IOrderRepository
     {
         int CreateOrder(Order order, ICollection<OrderItem> orderItems);
+        void DeleteOrder(int orderId);
     }
 }
