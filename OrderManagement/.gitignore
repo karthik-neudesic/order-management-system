@@ -1,0 +1,12 @@
+[Oo]bj/
+[Bb]in/
+.nuget/
+src/*/nupkgs
+packages/
+*.user
+*.suo
+*.userprefs
+*DS_Store
+*.sln.ide
+.vs/
+.vscode/
