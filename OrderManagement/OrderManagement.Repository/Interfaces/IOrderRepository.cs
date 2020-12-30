@@ -9,6 +9,6 @@ namespace OrderManagement.Repository.Interfaces
 {
     public interface IOrderRepository
     {
-        int CreateOrder(Order order);
+        int CreateOrder(Order order, ICollection<OrderItem> orderItems);
     }
 }

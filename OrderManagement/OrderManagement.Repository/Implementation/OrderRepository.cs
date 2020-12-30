@@ -10,9 +10,38 @@ namespace OrderManagement.Repository.Implementation
 {
     public class OrderRepository : IOrderRepository
     {
-        public int CreateOrder(Order order)
+        public int CreateOrder(Order order, ICollection<OrderItem> orderItems)
         {
-            throw new NotImplementedException();
+            using (var context = new OrderManagementDBContext())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        context.Orders.Add(order);
+                        context.SaveChanges();
+
+                        foreach (var item in orderItems)
+                        {
+                            item.OrderId = order.Id;
+                        }
+
+                        context.OrderItems.AddRange(orderItems);
+                        context.SaveChanges();
+
+                        transaction.Commit();
+                        return order.Id;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw;
+
+                    }
+                }
+            }
+
+
         }
     }
 }

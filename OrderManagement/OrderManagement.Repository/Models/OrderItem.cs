@@ -13,7 +13,7 @@ namespace OrderManagement.Repository.Models
         public int Quantity { get; set; }
         public int ProductId { get; set; }
         public DateTime CreateDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         public Product Product { get; set; }
         public Order Order { get; set; }

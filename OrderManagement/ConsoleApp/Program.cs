@@ -14,10 +14,11 @@ namespace ConsoleApp
         {
             using (var ctx = new OrderManagementDBContext())
             {
-                var stud = new Role() { Name = "Bill" };
+                //var stud = new Role() { Name = "Bill" };
 
-                ctx.Roles.Add(stud);
-                ctx.SaveChanges();
+                var role = ctx.Roles.First();
+                Console.WriteLine(role.Name);
+                //ctx.SaveChanges();
             }
 
             Console.WriteLine("Done");
