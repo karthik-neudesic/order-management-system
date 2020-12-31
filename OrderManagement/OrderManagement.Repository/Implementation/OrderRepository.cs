@@ -2,6 +2,7 @@
 using OrderManagement.Repository.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -55,6 +56,16 @@ namespace OrderManagement.Repository.Implementation
 
                 order.Active = false;
                 context.SaveChanges();
+            }
+        }
+
+        public ICollection<OrderDetails> GetOrderDetails(int userId)
+        {
+            using (var context = new OrderManagementDBContext())
+            {
+                var param1 = new SqlParameter("@userId", userId);
+                var orderDetails = context.Database.SqlQuery<OrderDetails>("GetOrderDetails @userId", param1).ToList();
+                return orderDetails;
             }
         }
     }

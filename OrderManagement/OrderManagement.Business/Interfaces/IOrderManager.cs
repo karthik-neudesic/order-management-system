@@ -11,5 +11,6 @@ namespace OrderManagement.Business.Interfaces
     {
         int CreateOrder(OrderDetails orderDetails);
         void DeleteOrder(int orderId);
+        ICollection<OrderDetails> GetOrderDetails(int userId);
     }
 }

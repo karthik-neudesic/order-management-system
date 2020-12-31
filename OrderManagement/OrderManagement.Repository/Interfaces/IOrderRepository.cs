@@ -11,5 +11,6 @@ namespace OrderManagement.Repository.Interfaces
     {
         int CreateOrder(Order order, ICollection<OrderItem> orderItems);
         void DeleteOrder(int orderId);
+        ICollection<OrderDetails> GetOrderDetails(int userId);
     }
 }

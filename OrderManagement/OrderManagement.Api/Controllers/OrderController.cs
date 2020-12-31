@@ -31,5 +31,13 @@ namespace OrderManagement.Api.Controllers
             service.DeleteOrder(id);
             return true;
         }
+
+        [Route("api/order/getOrders/{userId}")]
+        [HttpGet]
+        public ICollection<OrderDetails> GetOrders(int userId)
+        {
+            var orderDetails = service.GetOrderDetails(userId);
+            return orderDetails;
+        }
     }
 }
