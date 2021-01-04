@@ -9,6 +9,7 @@ namespace OrderManagement.Repository.Models
     public class OrderDetails
     {
         public int OrderId { get; set; }
+        public int StatusId { get; set; }
         public string Status { get; set; }
         public int Quantity { get; set; }
         public int ProductId { get; set; }

@@ -57,6 +57,7 @@ namespace OrderManagement.Business.Implementation
                 var orderData = ordersById.First();
                 var order = new OrderDetails();
                 order.OrderId = orderData.OrderId;
+                order.OrderStatus = orderData.StatusId;
                 order.Status = orderData.Status;
                 order.UserName = orderData.UserName;
                 order.EmailAddress = orderData.EmailAddress;
