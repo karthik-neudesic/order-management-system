@@ -3,6 +3,7 @@ using OrderManagement.Business.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -20,32 +21,32 @@ namespace OrderManagement.Api.Controllers
 
         [Route("createOrder")]
         [HttpPost]
-        public int CreateOrder([FromBody] OrderDetails orderDetails)
+        public async Task<int> CreateOrder([FromBody] OrderDetails orderDetails)
         {
-            return service.CreateOrder(orderDetails);
+            return await service.CreateOrder(orderDetails);
         }
 
         [Route("deleteOrder/{orderId}")]
         [HttpDelete]
-        public bool DeleteOrder(int orderId)
+        public async Task<bool> DeleteOrder(int orderId)
         {
-            service.DeleteOrder(orderId);
+            await service.DeleteOrder(orderId);
             return true;
         }
 
         [Route("getOrders/{userId}")]
         [HttpGet]
-        public ICollection<OrderDetails> GetOrders(int userId)
+        public async Task<ICollection<OrderDetails>> GetOrders(int userId)
         {
-            var orderDetails = service.GetOrderDetails(userId);
+            var orderDetails = await service.GetOrderDetails(userId);
             return orderDetails;
         }
 
         [Route("updateOrder/{orderId}/{status}")]
         [HttpPut]
-        public bool UpdateOrder(int orderId, int status)
+        public async Task<bool> UpdateOrder(int orderId, int status)
         {
-            service.UpdateOrder(orderId, status);
+            await service.UpdateOrder(orderId, status);
             return true;
         }
     }

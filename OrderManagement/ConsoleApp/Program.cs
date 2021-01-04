@@ -23,7 +23,7 @@ namespace ConsoleApp
             //}
 
             var orderRepo = new OrderRepository();
-            var orderDetails = orderRepo.GetOrderDetails(1);
+            var orderDetails = orderRepo.GetOrderDetails(1).Result;
             Console.WriteLine(orderDetails.Count);
             Console.WriteLine("Done");
             Console.ReadLine();

@@ -2,6 +2,7 @@
 using OrderManagement.Repository.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -12,7 +13,7 @@ namespace OrderManagement.Repository.Implementation
 {
     public class OrderRepository : IOrderRepository
     {
-        public int CreateOrder(Order order, ICollection<OrderItem> orderItems)
+        public async Task<int> CreateOrder(Order order, ICollection<OrderItem> orderItems)
         {
             using (var context = new OrderManagementDBContext())
             {
@@ -21,7 +22,7 @@ namespace OrderManagement.Repository.Implementation
                     try
                     {
                         context.Orders.Add(order);
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
 
                         foreach (var item in orderItems)
                         {
@@ -29,7 +30,7 @@ namespace OrderManagement.Repository.Implementation
                         }
 
                         context.OrderItems.AddRange(orderItems);
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
 
                         transaction.Commit();
                         return order.Id;
@@ -44,43 +45,43 @@ namespace OrderManagement.Repository.Implementation
             }
         }
 
-        public void DeleteOrder(int orderId)
+        public async Task DeleteOrder(int orderId)
         {
             using (var context = new OrderManagementDBContext())
             {
-                var order = context.Orders.FirstOrDefault(x => x.Id == orderId);
+                var order = await context.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
                 if (order == null)
                 {
                     throw new KeyNotFoundException($"{orderId} not found.");
                 }
 
                 order.Active = false;
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 
-        public ICollection<OrderDetails> GetOrderDetails(int userId)
+        public async Task<ICollection<OrderDetails>> GetOrderDetails(int userId)
         {
             using (var context = new OrderManagementDBContext())
             {
                 var param1 = new SqlParameter("@userId", userId);
-                var orderDetails = context.Database.SqlQuery<OrderDetails>("GetOrderDetails @userId", param1).ToList();
+                var orderDetails = await context.Database.SqlQuery<OrderDetails>("GetOrderDetails @userId", param1).ToListAsync();
                 return orderDetails;
             }
         }
 
-        public void UpdateOrder(int orderId, int status)
+        public async Task UpdateOrder(int orderId, int status)
         {
             using (var context = new OrderManagementDBContext())
             {
-                var order = context.Orders.FirstOrDefault(x => x.Id == orderId);
+                var order = await context.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
                 if (order == null)
                 {
                     throw new KeyNotFoundException($"{orderId} not found.");
                 }
 
                 order.OrderStatusId = status;
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
     }

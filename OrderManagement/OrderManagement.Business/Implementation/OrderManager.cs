@@ -20,7 +20,7 @@ namespace OrderManagement.Business.Implementation
             this.service = service;
         }
 
-        public int CreateOrder(OrderDetails orderDetails)
+        public async Task<int> CreateOrder(OrderDetails orderDetails)
         {
             orderDetails.OrderStatus = 1;
             var order = new models.Order();
@@ -38,17 +38,17 @@ namespace OrderManagement.Business.Implementation
                 orderItems.Add(item);
             }
 
-            return service.CreateOrder(order, orderItems);
+            return await service.CreateOrder(order, orderItems);
         }
 
-        public void DeleteOrder(int orderId)
+        public async Task DeleteOrder(int orderId)
         {
-            service.DeleteOrder(orderId);
+            await service.DeleteOrder(orderId);
         }
 
-        public ICollection<OrderDetails> GetOrderDetails(int userId)
+        public async Task<ICollection<OrderDetails>> GetOrderDetails(int userId)
         {
-            var orders = service.GetOrderDetails(userId);
+            var orders = await service.GetOrderDetails(userId);
             var orderDetails = new List<OrderDetails>();
             var orderIds = orders.Select(x=>x.OrderId).Distinct().ToList();
             foreach (var orderId in orderIds)
@@ -82,9 +82,9 @@ namespace OrderManagement.Business.Implementation
             return orderDetails;
         }
 
-        public void UpdateOrder(int orderId, int status)
+        public async Task UpdateOrder(int orderId, int status)
         {
-            service.UpdateOrder(orderId, status);
+            await service.UpdateOrder(orderId, status);
         }
     }
 }

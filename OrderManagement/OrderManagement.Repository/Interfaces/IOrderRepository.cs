@@ -9,9 +9,9 @@ namespace OrderManagement.Repository.Interfaces
 {
     public interface IOrderRepository
     {
-        int CreateOrder(Order order, ICollection<OrderItem> orderItems);
-        void DeleteOrder(int orderId);
-        ICollection<OrderDetails> GetOrderDetails(int userId);
-        void UpdateOrder(int orderId, int status);
+        Task<int> CreateOrder(Order order, ICollection<OrderItem> orderItems);
+        Task DeleteOrder(int orderId);
+        Task<ICollection<OrderDetails>> GetOrderDetails(int userId);
+        Task UpdateOrder(int orderId, int status);
     }
 }

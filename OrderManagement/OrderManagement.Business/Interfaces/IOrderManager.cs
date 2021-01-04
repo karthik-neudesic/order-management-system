@@ -9,9 +9,9 @@ namespace OrderManagement.Business.Interfaces
 {
     public interface IOrderManager
     {
-        int CreateOrder(OrderDetails orderDetails);
-        void DeleteOrder(int orderId);
-        ICollection<OrderDetails> GetOrderDetails(int userId);
-        void UpdateOrder(int orderId, int status);
+        Task<int> CreateOrder(OrderDetails orderDetails);
+        Task DeleteOrder(int orderId);
+        Task<ICollection<OrderDetails>> GetOrderDetails(int userId);
+        Task UpdateOrder(int orderId, int status);
     }
 }
