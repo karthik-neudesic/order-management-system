@@ -81,5 +81,10 @@ namespace OrderManagement.Business.Implementation
 
             return orderDetails;
         }
+
+        public void UpdateOrder(int orderId, int status)
+        {
+            service.UpdateOrder(orderId, status);
+        }
     }
 }

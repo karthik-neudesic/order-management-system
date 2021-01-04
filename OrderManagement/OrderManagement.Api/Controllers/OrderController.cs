@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace OrderManagement.Api.Controllers
 {
+    [RoutePrefix("api/order")]
     public class OrderController : ApiController
     {
         private IOrderManager service;
@@ -17,27 +18,35 @@ namespace OrderManagement.Api.Controllers
             this.service = service;
         }
 
-        [Route("api/order/createOrder")]
+        [Route("createOrder")]
         [HttpPost]
         public int CreateOrder([FromBody] OrderDetails orderDetails)
         {
             return service.CreateOrder(orderDetails);
         }
 
-        [Route("api/order/deleteOrder/{id}")]
+        [Route("deleteOrder/{orderId}")]
         [HttpDelete]
-        public bool DeleteOrder(int id)
+        public bool DeleteOrder(int orderId)
         {
-            service.DeleteOrder(id);
+            service.DeleteOrder(orderId);
             return true;
         }
 
-        [Route("api/order/getOrders/{userId}")]
+        [Route("getOrders/{userId}")]
         [HttpGet]
         public ICollection<OrderDetails> GetOrders(int userId)
         {
             var orderDetails = service.GetOrderDetails(userId);
             return orderDetails;
+        }
+
+        [Route("updateOrder/{orderId}/{status}")]
+        [HttpPut]
+        public bool UpdateOrder(int orderId, int status)
+        {
+            service.UpdateOrder(orderId, status);
+            return true;
         }
     }
 }

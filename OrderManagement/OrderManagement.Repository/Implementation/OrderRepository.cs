@@ -68,5 +68,20 @@ namespace OrderManagement.Repository.Implementation
                 return orderDetails;
             }
         }
+
+        public void UpdateOrder(int orderId, int status)
+        {
+            using (var context = new OrderManagementDBContext())
+            {
+                var order = context.Orders.FirstOrDefault(x => x.Id == orderId);
+                if (order == null)
+                {
+                    throw new KeyNotFoundException($"{orderId} not found.");
+                }
+
+                order.OrderStatusId = status;
+                context.SaveChanges();
+            }
+        }
     }
 }
